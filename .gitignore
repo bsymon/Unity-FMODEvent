@@ -32,3 +32,16 @@ sysinfo.txt
 # Builds
 *.apk
 *.unitypackage
+*.log
+FMODProject/
+.vscode/
+Assets/Editor Default Resources/
+Assets/FMOD/
+Assets/StreamingAssets/
+Assets/Tools/
+Assets/Editor Default Resources.meta
+Assets/FMOD.meta
+Assets/FMODStudioCache.asset
+Assets/FMODStudioCache.asset.meta
+Assets/StreamingAssets.meta
+Assets/Tools.meta
