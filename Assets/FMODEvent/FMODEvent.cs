@@ -4,6 +4,12 @@ using UnityEngine;
 
 namespace Game.Tools {
 
+[System.Serializable]
+public struct FMODEventParameter {
+	public string name;
+	public float value;
+}
+
 public class FMODEvent : MonoBehaviour {
 	
 	const int PARAM_ARRAY_SIZE = 5;
@@ -25,6 +31,9 @@ public class FMODEvent : MonoBehaviour {
 	public bool _playOnThisObject;
 	public Transform _customTarget;
 	public string _customPositionInEventPayload = "Position";
+	
+	[Header("Additionals parameters")]
+	public FMODEventParameter[] _parameters;
 	
 	// -- //
 	
@@ -58,7 +67,6 @@ public class FMODEvent : MonoBehaviour {
 	
 	void Update() {
 		if(playing) {
-			// TODO peut-être faire ça dans une Coroutine, afin d'éviter d'appeler Update tout le temps ...
 			FeedParameters(currentPayload);
 		}
 	}
@@ -96,6 +104,10 @@ public class FMODEvent : MonoBehaviour {
 		int floatLoop = data.GetParametersOfType<float>(ref floatParameters);
 		int boolLoop  = data.GetParametersOfType<bool>(ref boolParameters);
 		
+		for(int i = 0; i < _parameters.Length; ++ i) {
+			FMODEventInstance.setParameterValue(_parameters[i].name, _parameters[i].value);
+		}
+		
 		for(int i = 0; i < floatLoop; ++ i) {
 			FMODEventInstance.setParameterValue(floatParameters[i], data.Get<float>(floatParameters[i]));
 		}
@@ -128,10 +140,6 @@ public class FMODEvent : MonoBehaviour {
 	}
 	
 	void OnStopEvent(EventPayload data) {
-		if(_playOneShot) {
-			return;
-		}
-		
 		FMODEventInstance.stop(_stopMode);
 		playing        = false;
 		currentPayload = null;

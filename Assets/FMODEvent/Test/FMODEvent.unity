@@ -462,7 +462,10 @@ MonoBehaviour:
   _stopMode: 0
   _playOnThisObject: 1
   _customTarget: {fileID: 482915047}
-  _customPositionParameterName: None
+  _customPositionInEventPayload: Position
+  _parameters:
+  - name: Pitch
+    value: 1
 --- !u!4 &2047577920
 Transform:
   m_ObjectHideFlags: 0
